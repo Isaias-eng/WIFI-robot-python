@@ -111,10 +111,10 @@ def criar_website():
     </head>
     <body>
         <h1>Controle do Carro</h1>
-        <button onclick="fetch('/avancar')">Avançar</button><br>
-        <button onclick="fetch('/recuar')">Recuar</button><br>
-        <button onclick="fetch('/esquerda')">Girar Esquerda</button><br>
-        <button onclick="fetch('/direita')">Girar Direita</button><br>
+        <button onclick="fetch('/avancar')">Avancar</button><br>
+        <button onclick="fetch('/recuar')">Voltar</button><br>
+        <button onclick="fetch('/esquerda')">Esquerda</button><br>
+        <button onclick="fetch('/direita')">Direita</button><br>
         <button onclick="fetch('/parar')">Parar</button><br>
         <br>
         <h2>Controle de Velocidade</h2>
