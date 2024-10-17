@@ -20,6 +20,9 @@ pwm_motor2.freq(1000)
 # Velocidade dos motores (ajustável de 0 a 65535)
 velocidade = 65535  # valor máximo para velocidade (100%)
 
+# Configuração do LED indicador de Wi-Fi
+led_wifi = Pin(2, Pin.OUT)
+
 # Funções de controle dos motores
 def avancar():
     motor1_in1.value(1)
@@ -67,18 +70,25 @@ def parar():
     print("Ação: Parando os motores")
 
 # Configuração da rede Wi-Fi
-ssid = 'Isaias'
-password = '12345678'
+ssid = 'DELTA_FIBRA_SERGIO CASA'
+password = 'sergio1974#'
 
 def conectar_wifi():
     wlan = network.WLAN(network.STA_IF)
     wlan.active(True)
     print("Tentando conectar ao Wi-Fi:", ssid)
     wlan.connect(ssid, password)
+
+    # Piscar o LED enquanto a conexão não for estabelecida
     while not wlan.isconnected():
-        time.sleep(1)
-        print("Conectando ao Wi-Fi...")
+        led_wifi.on()   # Liga o LED
+        time.sleep(0.5)  # Espera 0.5 segundos
+        led_wifi.off()  # Desliga o LED
+        time.sleep(0.5)  # Espera mais 0.5 segundos
+        print("Tentando conectar ao Wi-Fi...")
+
     print("Conectado ao Wi-Fi com sucesso! IP:", wlan.ifconfig()[0])
+    led_wifi.on()  # Liga o LED indicando que está conectado ao Wi-Fi
     return wlan.ifconfig()[0]
 
 # Função para criar a interface web
@@ -111,10 +121,10 @@ def criar_website():
     </head>
     <body>
         <h1>Controle do Carro</h1>
-        <button onclick="fetch('/avancar')">Avancar</button><br>
-        <button onclick="fetch('/recuar')">Voltar</button><br>
-        <button onclick="fetch('/esquerda')">Esquerda</button><br>
-        <button onclick="fetch('/direita')">Direita</button><br>
+        <button onclick="fetch('/avancar')">Avançar</button><br>
+        <button onclick="fetch('/recuar')">Recuar</button><br>
+        <button onclick="fetch('/esquerda')">Girar Esquerda</button><br>
+        <button onclick="fetch('/direita')">Girar Direita</button><br>
         <button onclick="fetch('/parar')">Parar</button><br>
         <br>
         <h2>Controle de Velocidade</h2>
